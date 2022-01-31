@@ -62,16 +62,16 @@ class PopulateDatabase extends Command
                 // Based on appearance count add to the Show Characters Table
                 if (count($character->appearance) > 0) {
                     ShowCharacter::create([
+                        'character_id' => $savedCharacter->id,
                         'show_id' => self::SHOW_ID_BREAKING_BAD,
-                        'character_id' => $savedCharacter->id
                     ]);
                 }
 
                 // Based on appearance count add to the Show Characters Table
                 if (count($character->better_call_saul_appearance) > 0) {
                     ShowCharacter::create([
+                        'character_id' => $savedCharacter->id,
                         'show_id' => self::SHOW_ID_BETTER_CALL_SAUL,
-                        'character_id' => $savedCharacter->id
                     ]);
                 }
 
@@ -84,7 +84,7 @@ class PopulateDatabase extends Command
         if ($response['status']) {
             $quotes = $response['data'];
             foreach ($quotes as $quote) {
-                $character = Character::where('name', $quote->author)->orWhere('nickname',$quote->author)->first();
+                $character = Character::where('name', $quote->author)->orWhere('nickname', $quote->author)->first();
                 if ($character != null) {
 
                     if ($quote->series == 'Better Call Saul') {

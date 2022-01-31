@@ -19,7 +19,7 @@ class Character extends Model
      */
     public function shows(): BelongsToMany
     {
-        return $this->belongsToMany(Show::class, 'show_characters', 'show_id', 'character_id');
+        return $this->belongsToMany(Show::class, 'show_characters');
     }
 
 

@@ -16,7 +16,9 @@ class ShowSeeder extends Seeder
     {
         Show::create([
             "name" => 'Breaking Bad',
-        ], [
+        ]);
+
+        Show::create([
             "name" => 'Better Call Saul',
         ]);
     }

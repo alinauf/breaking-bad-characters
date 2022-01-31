@@ -2,84 +2,128 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\CharacterRequest;
+use App\Models\Character;
+use App\Services\CharacterService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 
 class CharacterController extends Controller
 {
+    /*
+    * @var App\Services\CharacterService
+    */
+    private $characterService;
+
+    /**
+     * Constructor.
+     * @param CharacterService $characterService
+     */
+    public function __construct(CharacterService $characterService)
+    {
+        $this->characterService = $characterService;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
-        //
-        return view('characters.index');
+        return view(
+            'characters.index'
+        );
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function create()
     {
-        //
+        return view(
+            'characters.create'
+        );
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param CharacterRequest $request
+     * @return Application|RedirectResponse|Redirector
      */
-    public function store(Request $request)
+    public function store(CharacterRequest $request)
     {
-        //
+        $result = $this->characterService->storecharacter($request->all());
+
+        if ($result['status']) {
+            return redirect('characters')->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('failure', $result['payload']);
+        }
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Character $character
+     * @return Application|Factory|View
      */
-    public function show($id)
+    public function show(Character $character)
     {
-        //
+        return view(
+            'characters.show',
+            [
+                'character' => $character
+            ]
+        );
+    }
+
+
+    /**
+     * @param character $character
+     * @return Application|Factory|View
+     */
+    public function edit(character $character)
+    {
+        return view(
+            'characters.edit', ['character' => $character]
+        );
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param CharacterRequest $request
+     * @param Character $character
+     * @return Application|RedirectResponse|Redirector
      */
-    public function edit($id)
+    public function update(CharacterRequest $request, character $character)
     {
         //
+        $result = $this->characterService->updatecharacter($character->id, $request->all());
+
+        if ($result['status']) {
+            return redirect("character/$character->id")->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('failure', $result['payload']);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param character $character
+     * @return Application|RedirectResponse|Redirector
      */
-    public function destroy($id)
+    public function destroy(character $character)
     {
         //
+        $result = $this->characterService->deletecharacter($character->id);
+
+        if ($result['status']) {
+            return redirect('characters')->with('success', $result['payload']);
+        } else {
+            return redirect()->back()->with('failure', $result['payload']);
+        }
     }
 }

@@ -16,6 +16,6 @@ class Show extends Model
      */
     public function characters(): BelongsToMany
     {
-        return $this->belongsToMany(Character::class,'show_characters', 'character_id', 'show_id');
+        return $this->belongsToMany(Character::class,'show_characters');
     }
 }
