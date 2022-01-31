@@ -12,6 +12,11 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            screens: {
+
+                '2xl': '1536px',
+                // => @media (min-width: 1536px) { ... }
+            }
         },
     },
 
