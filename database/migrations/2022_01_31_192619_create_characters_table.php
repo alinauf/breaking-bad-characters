@@ -18,8 +18,8 @@ class CreateCharactersTable extends Migration
             $table->string('name');
             $table->string('occupation')->nullable();
             $table->string('nickname')->nullable();
-            $table->boolean('is_alive');
-            $table->string('img_url')->nullable();
+            $table->string('status');
+            $table->longText('img_url')->nullable();
             $table->timestamps();
         });
     }

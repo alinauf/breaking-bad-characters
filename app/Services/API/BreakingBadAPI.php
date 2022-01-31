@@ -28,7 +28,7 @@ class BreakingBadAPI
             $response = Http::get($this->baseUrl . 'characters');
 
             if ($response->successful()) {
-                return ['status' => true, 'data' => $response->body()];
+                return ['status' => true, 'data' => $response->object()];
             }
 
             $status400Above = $response->failed();
@@ -59,7 +59,7 @@ class BreakingBadAPI
             $response = Http::get($this->baseUrl . 'quotes');
 
             if ($response->successful()) {
-                return ['status' => true, 'data' => $response->body()];
+                return ['status' => true, 'data' => $response->object()];
             }
 
 
