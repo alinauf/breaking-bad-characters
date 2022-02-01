@@ -60,6 +60,8 @@ class CharacterController extends Controller
         $result = $this->characterService->storecharacter($request->all());
 
         if ($result['status']) {
+            $result['character']->id;
+
             return redirect('characters')->with('success', $result['payload']);
         } else {
             return redirect()->back()->with('failure', $result['payload']);
@@ -104,7 +106,7 @@ class CharacterController extends Controller
         $result = $this->characterService->updatecharacter($character->id, $request->all());
 
         if ($result['status']) {
-            return redirect("character/$character->id")->with('success', $result['payload']);
+            return redirect("characters/$character->id")->with('success', $result['payload']);
         } else {
             return redirect()->back()->with('failure', $result['payload']);
         }

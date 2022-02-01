@@ -10,8 +10,6 @@ use Illuminate\Console\Command;
 
 class PopulateDatabase extends Command
 {
-    const SHOW_ID_BREAKING_BAD = 1;
-    const SHOW_ID_BETTER_CALL_SAUL = 2;
 
     /**
      * The name and signature of the console command.
@@ -63,7 +61,7 @@ class PopulateDatabase extends Command
                 if (count($character->appearance) > 0) {
                     ShowCharacter::create([
                         'character_id' => $savedCharacter->id,
-                        'show_id' => self::SHOW_ID_BREAKING_BAD,
+                        'show_id' => config('constants.SHOW_ID_BREAKING_BAD'),
                     ]);
                 }
 
@@ -71,7 +69,7 @@ class PopulateDatabase extends Command
                 if (count($character->better_call_saul_appearance) > 0) {
                     ShowCharacter::create([
                         'character_id' => $savedCharacter->id,
-                        'show_id' => self::SHOW_ID_BETTER_CALL_SAUL,
+                        'show_id' => config('constants.SHOW_ID_BETTER_CALL_SAUL'),
                     ]);
                 }
 
@@ -88,9 +86,9 @@ class PopulateDatabase extends Command
                 if ($character != null) {
 
                     if ($quote->series == 'Better Call Saul') {
-                        $show_id = self::SHOW_ID_BETTER_CALL_SAUL;
+                        $show_id = config('constants.SHOW_ID_BETTER_CALL_SAUL');
                     } else {
-                        $show_id = self::SHOW_ID_BREAKING_BAD;
+                        $show_id = config('constants.SHOW_ID_BREAKING_BAD');
                     }
 
                     Quote::create([

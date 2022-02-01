@@ -14,7 +14,7 @@ class Quote extends Model
     /**
      * The quote belongs to a character
      */
-    public function quotes(): BelongsTo
+    public function character(): BelongsTo
     {
         return $this->belongsTo(Character::class);
     }

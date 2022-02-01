@@ -23,17 +23,18 @@
 <div class="min-h-screen bg-gray-100">
 @include('layouts.navigation')
 
-<!-- Page Heading -->
-    <header class="bg-white shadow">
-        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-            {{ $header }}
+    {{--Main Content--}}
+    <main class="flex-1 relative overflow-y-auto focus:outline-none">
+        <div class="py-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                <h1 class="text-2xl font-semibold text-gray-900">{{$header}}</h1>
+            </div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+                {{ $slot }}
+            </div>
         </div>
-    </header>
-
-    <!-- Page Content -->
-    <main>
-        {{ $slot }}
     </main>
+
 </div>
 @livewireScripts
 

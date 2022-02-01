@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Character;
+use App\Models\ShowCharacter;
 use Illuminate\Support\Facades\DB;
 
 class CharacterService
@@ -17,7 +18,7 @@ class CharacterService
     public function listCharacters($search)
     {
         return Character::where('name', 'like', '%' . $search . '%')->orWhere('nickname', 'like', '%' . $search . '%')
-            ->orderBy('id', 'desc')
+            ->orderBy('id', 'asc')
             ->paginate(10);
     }
 
@@ -34,6 +35,15 @@ class CharacterService
                 'nickname' => $data['nickname'] ?? null,
                 'status' => $data['status'],
             ]);
+
+            if ($character != null) {
+                foreach ($data['selected_shows'] as $selected_show) {
+                    ShowCharacter::create([
+                        'character_id' => $character->id,
+                        'show_id' => $selected_show,
+                    ]);
+                }
+            }
         } catch (\Exception $e) {
             DB::rollback();
             //throw $e;
@@ -43,7 +53,7 @@ class CharacterService
 
         DB::commit();
 
-        return ['status' => true, 'payload' => 'The character has been successfully created'];
+        return ['status' => true, 'payload' => 'The character has been successfully created', 'character' => $character];
     }
 
     // Find and update character
@@ -60,6 +70,16 @@ class CharacterService
             $character->nickname = $data['nickname'] ?? null;
             $character->status = $data['status'] ?? $character->status;
             $characterSave = $character->save();
+
+            if ($characterSave) {
+                ShowCharacter::where('character_id', $characterId)->delete();
+                foreach ($data['selected_shows'] as $selected_show) {
+                    ShowCharacter::create([
+                        'character_id' => $characterId,
+                        'show_id' => $selected_show,
+                    ]);
+                }
+            }
         } catch (\Exception $e) {
             DB::rollback();
             return ['status' => false, 'payload' => 'There was an error with updating the character'];
