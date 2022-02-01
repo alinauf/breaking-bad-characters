@@ -219,8 +219,10 @@
                                     <div class="hidden sm:block sm:col-span-1 mt-4 sm:mt-0">
                                         <div class="mx-auto max-w-md px-4 sm:max-w-3xl sm:px-6 lg:p-0 lg:h-full">
                                             <div class="rounded-xl overflow-hidden  aspect-none ">
+                                                @if($character->img_url!=null&&$character->img_url!='')
                                                 <img class="object-cover lg:h-full lg:w-full"
                                                      src="{{$character->img_url}}" alt="">
+                                                    @endif
                                             </div>
                                         </div>
                                     </div>

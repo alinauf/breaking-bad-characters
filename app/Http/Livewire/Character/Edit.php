@@ -42,7 +42,7 @@ class Edit extends Component
 
         $SHOW_ID_BREAKING_BAD = config('constants.SHOW_ID_BREAKING_BAD');
         $SHOW_ID_BETTER_CALL_SAUL = config('constants.SHOW_ID_BETTER_CALL_SAUL');
-        $this->statuses = ['Alive', 'Deceased', 'Presumed dead	'];
+        $this->statuses = ['Alive', 'Deceased', 'Presumed dead'];
         $this->shows = [$SHOW_ID_BREAKING_BAD => 'Breaking Bad', $SHOW_ID_BETTER_CALL_SAUL => 'Better Call Saul'];
         $this->formValidationStatus = false;
     }
