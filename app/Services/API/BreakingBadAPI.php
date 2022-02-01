@@ -79,5 +79,72 @@ class BreakingBadAPI
 
     }
 
+    /**
+     * Make a GET request to fetch the character's death information
+     * @return array
+     * @throws RequestException
+     */
+    public function getCharactersDeathInformation($characterName): array
+    {
+        try {
+            Log::info('GET ' . $this->baseUrl . 'death?name=' . $characterName);
+            $response = Http::get($this->baseUrl . 'death?name=' . $characterName);
+
+            if ($response->successful()) {
+                return ['status' => true, 'data' => $response->object()];
+            }
+
+
+            $status400Above = $response->failed();
+            $status400 = $response->clientError();
+            $status500 = $response->serverError();
+
+            if ($status400Above || $status400 || $status500) {
+                Log::error('Response Status: ' . $response->status());
+                Log::error('Response Body: ' . $response->body());
+                $response->throw();
+            }
+
+        } catch (\Exception $e) {
+            Log::error('Error ' . $e);
+        }
+
+    }
+
+    /**
+     * Make a GET request to fetch the character's death cause count
+     * @return array
+     * @throws RequestException
+     */
+    public function getCharactersDeathsCausedCount($characterName): array
+    {
+        try {
+            Log::info('GET ' . $this->baseUrl . 'death-count?name=' . $characterName);
+            $response = Http::get($this->baseUrl . 'death-count?name=' . $characterName);
+
+            if ($response->successful()) {
+                return ['status' => true, 'data' => $response->object()];
+            }
+
+
+            $status400Above = $response->failed();
+            $status400 = $response->clientError();
+            $status500 = $response->serverError();
+
+            if ($status400Above || $status400 || $status500) {
+                Log::error('Response Status: ' . $response->status());
+                Log::error('Response Body: ' . $response->body());
+                $response->throw();
+            }
+
+        } catch (\Exception $e) {
+            Log::error('Error ' . $e);
+        }
+
+    }
+
+
+
+
 
 }

@@ -143,6 +143,76 @@
                                                 </div>
                                             @endif
 
+                                            @if($deathInformation!='NA' && $deathInformation!=null)
+                                                <div class="col-span-2">
+                                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                                        Death Information
+                                                    </h3>
+                                                </div>
+
+                                                <div class="col-span-1">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Cause
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        {{$deathInformation->cause}}
+                                                    </dd>
+                                                </div>
+
+                                                <div class="col-span-1">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Responsible
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        {{$deathInformation->responsible}}
+                                                    </dd>
+                                                </div>
+
+                                                <div class="col-span-1">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Last words
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        {{$deathInformation->last_words}}
+                                                    </dd>
+                                                </div>
+
+                                                <div class="col-span-1">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Died Season and Episode
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        Season: {{$deathInformation->season}},
+                                                        Episode: {{$deathInformation->episode}}
+                                                    </dd>
+                                                </div>
+
+
+
+
+
+                                            @endif
+
+                                            @if($deathsCaused!='NA' && $deathsCaused!=null)
+                                                <div class="col-span-2">
+                                                    <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                                        Death's Caused
+                                                    </h3>
+                                                </div>
+
+                                                <div class="col-span-1">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Death's Caused Count
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        {{$deathsCaused->deathCount}}
+                                                    </dd>
+                                                </div>
+
+
+                                            @endif
+
+
                                         </div>
 
                                     </div>

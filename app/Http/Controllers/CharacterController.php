@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CharacterRequest;
 use App\Models\Character;
+use App\Services\API\BreakingBadAPI;
 use App\Services\CharacterService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -75,10 +76,29 @@ class CharacterController extends Controller
      */
     public function show(Character $character)
     {
+        $breakingBadAPI = new BreakingBadAPI;
+
+        $deathInformation = 'NA';
+        $deathsCaused = 'NA';
+
+        // Get Character's Death Information
+        if (str_replace(' ', '', $character->status) != 'Alive' && str_replace(' ', '', $character->status) != 'Unknown') {
+            $response = $breakingBadAPI->getCharactersDeathInformation($character->name);
+            if ($response['status']) {
+                $deathInformation = isset($response['data'][0]) ? $response['data'][0] : 'NA';
+            }
+        }
+
+        $response = $breakingBadAPI->getCharactersDeathsCausedCount($character->name);
+        if ($response['status']) {
+            $deathsCaused = isset($response['data'][0]) ? $response['data'][0] : 'NA';
+        }
         return view(
             'characters.show',
             [
-                'character' => $character
+                'character' => $character,
+                'deathInformation' => $deathInformation,
+                'deathsCaused' => $deathsCaused
             ]
         );
     }
