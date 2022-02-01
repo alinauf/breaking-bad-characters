@@ -126,6 +126,23 @@
                                                     {{$character->occupation}}
                                                 </dd>
                                             </div>
+
+                                            @if(count($character->quotes) > 0)
+                                                <div class="col-span-2 mr-3">
+                                                    <dt class="text-sm font-medium text-gray-500">
+                                                        Qoutes
+                                                    </dt>
+                                                    <dd class="mt-1 text-sm text-gray-900">
+                                                        <ul class="list-disc ml-3">
+                                                            @foreach($character->quotes as $quote)
+                                                                <li class="mt-1 font-medium">{{$quote->quote}}</li>
+                                                            @endforeach
+                                                        </ul>
+
+                                                    </dd>
+                                                </div>
+                                            @endif
+
                                         </div>
 
                                     </div>

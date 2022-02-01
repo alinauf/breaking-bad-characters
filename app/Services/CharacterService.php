@@ -15,11 +15,15 @@ class CharacterService
     }
 
     // Fetch all characters. If search filter has value fetch all characters filtered by search
-    public function listCharacters($search)
+    public function listCharacters($search,$category)
     {
-        return Character::where('name', 'like', '%' . $search . '%')->orWhere('nickname', 'like', '%' . $search . '%')
-            ->orderBy('id', 'asc')
-            ->paginate(10);
+        if($category=='showAll'){
+            return Character::where('name', 'like', '%' . $search . '%')->orderBy('id','asc')->paginate(10);
+        }else{
+            return Character::where('name', 'like', '%' . $search . '%')
+                ->whereRelation('shows', 'name', 'like', '%' . $category . '%')->orderBy('id','asc')->paginate(10);
+        }
+
     }
 
     // Create and store a character

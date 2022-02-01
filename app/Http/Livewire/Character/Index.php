@@ -12,21 +12,41 @@ class Index extends Component
     use WithPagination;
 
     public $search;
-    public $isBreakingBadShow;
+    public $category;
+    public $isBreakingBadShow = false;
+    public $isBetterCallSaul = false;
 
-    public function mount()
+    public function toggleBreakingBad()
     {
-
-        $this->isBreakingBadShow;
+        $this->isBetterCallSaul = false;
     }
 
+    public function toggleBetterCallSaul()
+    {
+        $this->isBreakingBadShow = false;
+    }
 
     public function render()
     {
-        $service = new CharacterService();
-        $data = $service->listCharacters($this->search);
 
-        return view('livewire.character.index',['characters'=>$data]);
+        if ($this->isBreakingBadShow) {
+            $category = 'Breaking Bad';
+            $this->isBetterCallSaul = false;
+        } elseif ($this->isBetterCallSaul) {
+            $category = 'Better Call Saul';
+            $this->isBreakingBadShow = false;
+        } else {
+            $category = 'showAll';
+            $this->isBetterCallSaul = false;
+            $this->isBreakingBadShow = false;
+        }
+
+
+        // Query and fetch all users based on search
+        $service = new CharacterService();
+        $data = $service->listCharacters($this->search, $category);
+
+        return view('livewire.character.index', ['characters' => $data]);
     }
 
 }

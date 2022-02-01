@@ -14,13 +14,39 @@
         </div>
     </div>
 
-    <div class="flex justify-end mb-4">
+    <div class="flex justify-between mb-4">
 
 
         <div class="mt-1 flex-1">
             {{--Datatable Search Box--}}
             <x-search-datatable placeholder="Search Characters"/>
         </div>
+
+        <div class="relative flex items-start">
+
+            <div class="flex items-center">
+                <input id="published" aria-describedby="published-description" type="checkbox"
+                       wire:model="isBreakingBadShow"
+                       wire:click="toggleBreakingBad"
+                       class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-blue-300 rounded">
+            </div>
+            <div class="ml-3 text-sm mr-4">
+                <label for="published" class="font-medium text-gray-700">Breaking Bad</label>
+            </div>
+
+            <div class="ml-3 flex items-center">
+                <input id="draft" aria-describedby="draft"  type="checkbox"
+                       wire:click="toggleBetterCallSaul"
+                       wire:model="isBetterCallSaul"
+                       class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-blue-300 rounded">
+            </div>
+            <div class="ml-3 text-sm">
+                <label for="draft" class="font-medium text-gray-700">Better Call Saul</label>
+            </div>
+
+
+        </div>
+
     </div>
 
     <div class="flex flex-col">

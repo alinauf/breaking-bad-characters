@@ -168,4 +168,83 @@ formValidationStatus:@entangle('formValidationStatus'),
         <x-confirm-create-modal title="Are you sure"
                                 subtitle="Please confirm if you would like to update the character"/>
     </form>
+
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+        <div class="">
+            <div class=" py-5 ">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    Quotes
+                </h3>
+                <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                    Add the quotes for the use
+                </p>
+            </div>
+
+            <div class=" mt-3 grid grid-cols-1 gap-y-4  gap-x-4 sm:grid-cols-6">
+
+                {{-- Quotes--}}
+                <div class="sm:col-span-3">
+                    <label for="quote" class="block text-sm font-medium text-gray-700"
+                    >
+                        Quote <span class="text-red-900">*</span>
+                    </label>
+                    <div class="mt-1">
+                        <input type="text" name="quote"
+                               wire:model="quote"
+                               id="quote"
+                               class="
+                            @error('quote') border border-red-500 @enderror
+                                   shadow-sm focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm
+                                   border-gray-300 rounded-md">
+                    </div>
+
+                    @error('quote')
+                    <p class="mt-2 text-sm text-red-600">{{$message}}</p>
+                    @enderror
+                </div>
+
+                <div class="sm:col-span-6">
+                    <button wire:click="addQuote" type="button"
+                            class=" inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-400 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                        Add Quote
+                    </button>
+                </div>
+
+
+                <div class="sm:col-span-6">
+                    <dt class="text-sm font-medium text-gray-500">
+                        Choices
+                    </dt>
+                    <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                        <ul role="list" class="border border-gray-200 rounded-md divide-y divide-gray-200">
+                            @foreach($character->quotes as $quote)
+                                <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                                    <div class="w-0 flex-1 flex items-center">
+                                        <span class="ml-2 flex-1 w-0 truncate">
+                                                  {{$quote->quote}}
+                                                </span>
+                                    </div>
+                                    <div class="ml-4 flex-shrink-0">
+                                        <button type="button" wire:click="removeQuote({{$quote->id}})" href="#"
+                                                class="font-medium text-red-600 hover:text-red-500">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </dd>
+                </div>
+
+
+
+
+
+
+            </div>
+
+        </div>
+    </div>
+
+
 </div>
